@@ -1,23 +1,25 @@
 const products = [
     {
-        id: 123,
-        title: "Redmi Note 10 Pro",
+        title: "Iphone 13 pro max",
         img: "https://picsum.photos/300/200",
-        price: 4300000,
-        model: "Xiaomi",
-        addedDate: new Date("2021-11-12").toISOString(),
-        benefits: ["8gb", "128gb", "Waterproof"]
+        price: 1350,
+        lastprice:19800000,
+        model: "Apple",
+        addedDate: new Date("2021-10-12"),
+        benefits: ["128gb", "1tb" , "White"],
+        info: "This is nice Mobile , :)"
     },
     {
-        id: 124,
-        title: "Samgung Note 20 Ultra",
+        title: "Samsung S 22 Ultra",
         img: "https://picsum.photos/300/200",
-        price: 8300000,
+        price: 1150,
+        lastprice:15300000,
         model: "Samsung",
-        addedDate: new Date("2021-10-12").toISOString(),
-        benefits: ["32gb", "1tb"]
-    }
-]
+        addedDate: new Date("2021-10-12"),
+        benefits: ["128gb", "1tb" , "White"],
+        info: "This is nice Mobile , :)"
+    },
+    ];
 
 const manufacturers = [
     {

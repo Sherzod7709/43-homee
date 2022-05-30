@@ -1,65 +1,3 @@
-const products = [
-    {
-        id: 124,
-        title: "Iphone 13 pro max",
-        img: "https://picsum.photos/300/200",
-        price: 8300000,
-        lastprice:9800000,
-        model: "Samsung",
-        addedDate: new Date("2021-10-12"),
-        benefits: ["128gb", "1tb" , "White"],
-        info: "This is nice Mobile , :)"
-    },
-    {
-        id: 123,
-        title: "Redmi Note 10 Pro",
-        img: "https://picsum.photos/300/200",
-        price: 4300000,
-        lastprice:7000000,
-        model: "Xiaomi",
-        addedDate: new Date("2021-11-12"),
-        benefits: ["8gb", "128gb", "Waterproof"],
-        info:"This is nice Mobile"
-    },
-    {
-        id: 124,
-        title: "Samgung Note 20 Ultra",
-        img: "https://picsum.photos/300/200",
-        price: 8300000,
-        lastprice:9800000,
-        model: "Samsung",
-        addedDate: new Date("2021-10-12"),
-        benefits: ["32gb", "1tb" , "White"],
-        info: "This is nice Mobile , :)"
-    },
-    {
-        id: 124,
-        title: "Samgung Note 21 Ultra",
-        img: "https://picsum.photos/300/200",
-        price: 8300000,
-        lastprice:9800000,
-        model: "Samsung",
-        addedDate: new Date("2021-10-12"),
-        benefits: ["32gb", "1tb" , "White"],
-        info: "This is nice Mobile , :)"
-    },
-]
-
-const manufacturers = [
-    {
-        id: 1,
-        name: "Xiaomi"
-    },
-    {
-        id: 2,
-        name: "Apple"
-    },
-    {
-        id: 3,
-        name: "Samsung"
-    }
-];
-
 const elProductTemplate = document.querySelector(".product-template");
 const elCardWrapper = document.querySelector(".card-list");
 
@@ -72,7 +10,7 @@ const createProductRow = (card) => {
     elCardTitle.textContent = card.title;
     
     const elCardMark = elCardRow.querySelector(".card-mark");
-    elCardMark.textContent = card.price;
+    elCardMark.textContent = `${card.price}$`;
     
     const elLastMark = elCardRow.querySelector(".last-mark");
     elLastMark.textContent = card.lastprice;
@@ -97,11 +35,60 @@ const createProductRow = (card) => {
 
     const elCardInfo = elCardRow.querySelector(".info");
     elCardInfo.textContent = card.info;
+
+    const elDeleteBtn = elCardRow.querySelector('.btn-danger');
+    elDeleteBtn.dataset.title = card.title;
     
     return elCardRow;
 }
 
-products.forEach((card) => {
-    const elCardRow = createProductRow(card);
-    elCardWrapper.appendChild(elCardRow);
+const renderMobile = () => {
+    products.forEach((card) => {
+        const elCardRow = createProductRow(card);
+        elCardWrapper.appendChild(elCardRow);
+    })
+};
+renderMobile();
+
+const elAddMobileForm = document.querySelector('.add-mobile-form');
+
+elAddMobileForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const elFormElement = e.target.elements;
+    const elInputPhone = elFormElement.productTitle.value.trim();
+    const elInputPrice = +elFormElement.price.value.trim();
+    const elBenefits = elFormElement.benefits.value.trim();
+
+    if (elInputPhone && elBenefits  && elInputPrice > 0 ) {
+        const imag = document.querySelector('.card-img-top')
+        const logo = document.querySelector('#productManufacturer')
+        const addingMobile = {
+            title: elInputPhone,
+            img: imag,
+            price: `${elInputPrice}`,
+            lastprice:"000",
+            addedDate: new Date().toISOString,
+            model: logo.value,
+            benefits: ["Barcha turlari mavjud"],
+            info: elBenefits
+        }
+        products.unshift(addingMobile);
+        const newPhone = createProductRow(addingMobile);
+        elCardWrapper.prepend(newPhone);
+        elAddMobileForm.reset();
+
+    }
+});
+
+elCardWrapper.addEventListener("click", (e) => {
+    if (e.target.matches('.btn-danger')){
+        const clickedBtnText = e.target.dataset.title;
+        const clickedBtnIndex = products.findIndex (mobile => {
+            return mobile.title === clickedBtnText;
+        })
+        products.splice(clickedBtnIndex,1)
+        elCardWrapper.innerHTML = ``;
+
+        renderMobile();
+    }
 })
