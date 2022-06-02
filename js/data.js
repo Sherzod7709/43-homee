@@ -1,5 +1,6 @@
 const products = [
     {
+        id :100,
         title: "Iphone 13 pro max",
         img: "https://picsum.photos/300/200",
         price: 1350,
@@ -10,6 +11,7 @@ const products = [
         info: "This is nice Mobile , :)"
     },
     {
+        id:101,
         title: "Samsung S 22 Ultra",
         img: "https://picsum.photos/300/200",
         price: 1150,
@@ -18,7 +20,7 @@ const products = [
         addedDate: new Date("2021-10-12"),
         benefits: ["128gb", "1tb" , "White"],
         info: "This is nice Mobile , :)"
-    },
+    }
     ];
 
 const manufacturers = [

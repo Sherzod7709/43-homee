@@ -14,7 +14,7 @@
         <div class="d-flex justify-content-between">
             <h1 class="h2">Gilos.uz/smartphones</h1>
             
-            <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#edit-student-modal">
+            <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#add-student-modal">
                 <span class="me-2">Add product</span>
                 <i class="fa-solid fa-plus"></i>
             </button>
@@ -78,11 +78,11 @@
         </div>
     </div>
     
-    <div class="modal fade" id="edit-student-modal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+    <div class="modal fade" id="add-student-modal" tabindex="-1" aria-labelledby="addStudentModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editStudentModalLabel">Add product</h5>
+                    <h5 class="modal-title" id="addStudentModalLabel">Add product</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -122,6 +122,51 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="edit-product-modal" tabindex="-1" aria-labelledby="editStudentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editStudentModalLabel">Edit product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="edit-mobile-form">
+                        <div class="mb-3">
+                            <label for="product-title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="edit-productTitle" placeholder="Falon telefon">
+                        </div>
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Narxi</label>
+                            <input type="number" class="form-control" id="edit-price" placeholder="$... .">
+                        </div>
+                        <div class="mb-3">
+                            <label for="product-manufacturer" class="form-label">Manufacturer</label>
+                            <select class="form-select" id="edit-productManufacturer">
+                                <option class="optn" selected value="Xiomi">Xiomi</option>
+                                <option class="optn" selected value="Samsung">Samsung</option>
+                                <option class="optn" selected value="Apple">Apple</option>
+                                <!-- manufacturers array bu yerga kelishi kerak -->
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3 aksses">
+                            <label for="benefits" class="form-label">Benefits</label>
+                            <input type="text" class="form-control" id="edit-benefits" placeholder=":)">
+                            
+                            <ul class="d-flex flex-wrap list-unstyled mt-3">
+                                <li class="me-1 mb-1"><button type="button" class="btn btn-sm badge rounded-pill btn-danger">8gb</button></li>
+                                <li class="me-1 mb-1"><button type="button" class="btn btn-sm badge rounded-pill btn-danger">128gb</button></li>
+                                <li class="me-1 mb-1"><button type="button" class="btn btn-sm badge rounded-pill btn-danger">Waterproof</button></li>
+                                <li id="falon" class="me-1 mb-1"><button type="button" class="btn btn-sm badge rounded-pill btn-danger">Falon yaxshi tarafi</button></li>
+                            </ul>
+                        </div>
+                        <button type="submit" class="btn btn-primary d-block w-100 p-2">Edit product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <template class="product-template">
         <div class="card card-list">
@@ -140,16 +185,21 @@
                     <li class="badge color bg-primary me-1 mb-1"></li>
                     <li class="badge info bg-primary me-1 mb-1"></li>
                 </ul>
+                <p class="idd"></p>
                 
                 <div class="position-absolute top-0 end-0 d-flex">
-                    <button class="btn rounded-0 btn-secondary"><i class="fas fa-pen"></i></button>
-                    <button class="btn rounded-0 btn-danger"><i style="pointer-events: none;" class="fas fa-trash"></i></button>
+                    <button class="btn rounded-0 btn-secondary" data-bs-toggle="modal" data-bs-target="#edit-product-modal">
+                        <i style="pointer-events: none;" class="fas fa-pen"></i>
+                    </button>
+                    <button class="btn rounded-0 btn-danger" >
+                        <i style="pointer-events: none;" class="fas fa-trash"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </template>
     <script src="js/data.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
