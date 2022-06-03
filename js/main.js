@@ -1,5 +1,5 @@
 const elProductTemplate = document.querySelector(".product-template");
-const elCardWrapper = document.querySelector(".card-list");
+const elCardWrapper = document.querySelector(".card-list-wrap");
 
 const addnull = num => { return num < 10 ? "0" + num : num } ;
 
@@ -122,6 +122,10 @@ elCardWrapper.addEventListener("click", (e) => {
         }
     }
 });
+
+// const elImg = document.querySelector(".card-img-top");
+// elImg.setAttribute("src", "./img/iphone.jpg");
+
 elEditForm.addEventListener("submit",(evt) => {
     evt.preventDefault();
 
@@ -137,7 +141,7 @@ elEditForm.addEventListener("submit",(evt) => {
         const image = document.querySelector('.card-img-top');
         const submittingItemObj = {
             title: titleValue,
-            img: image,
+            //img: image,
             price: `${priceValue}`,
             lastprice:"000",
             addedDate: new Date().toISOString(),
