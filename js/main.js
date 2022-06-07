@@ -1,7 +1,16 @@
 const elProductTemplate = document.querySelector(".product-template");
 const elCardWrapper = document.querySelector(".card-list-wrap");
+const elMonufacturer = document.querySelector('#manufacturer');
+const elCount = document.querySelector("#count");
 
 const addnull = num => { return num < 10 ? "0" + num : num } ;
+
+    manufacturers.forEach( brand => {
+        const elPhone = document.createElement("option")
+        elPhone.textContent = brand.name;
+        elMonufacturer.append(elPhone);
+})
+
 
 const createProductRow = (card) => {
     const elCardRow = elProductTemplate.cloneNode(true).content;
@@ -48,16 +57,18 @@ const createProductRow = (card) => {
     return elCardRow;
 }
 
-const renderMobile = () => {
+const renderMobile = (mobileArray = products) => {
     elCardWrapper.innerHTML = ``;
-    products.forEach((card) => {
+    mobileArray.forEach((card) => {
         const elCardRow = createProductRow(card);
         elCardWrapper.appendChild(elCardRow);
     })
+    elCount.textContent = `count:${mobileArray.length}`
+    const hisob = mobileArray.length;
 };
 renderMobile();
-
 const elAddMobileForm = document.querySelector('.add-mobile-form');
+
 
 elAddMobileForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -83,9 +94,9 @@ elAddMobileForm.addEventListener('submit', (e) => {
         products.unshift(addingMobile);
         const newPhone = createProductRow(addingMobile);
         elCardWrapper.prepend(newPhone);
-        elAddMobileForm.reset();
-        
-    }
+        elAddMobileForm.reset();   
+    } 
+    elCount.textContent = `count:${products.length}`
 });
 
 // const elEditModa = new bootstrap.Modal("#edit-student-modal");
@@ -155,4 +166,64 @@ elEditForm.addEventListener("submit",(evt) => {
         renderMobile();
         elEditModal.hide();
     }
+})
+
+const elFiltrForm = document.querySelector('#filter');
+// const filter = (array , func) => {
+// const filteredMobiles = [];
+
+// array.forEach((element) => {
+//     if(func(element)){
+//         filteredMobiles.push(element)
+//     }
+// })
+// return filteredMobiles;
+
+// };
+
+elFiltrForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const filterElements = e.target.elements;
+    const searchValue = filterElements.search.value;
+    const fromValue = filterElements.from.value;
+    const toValue = filterElements.to.value;
+    const facturer = filterElements.manufacturer.value;
+    const elSort = filterElements.sortby.value;
+
+    //const benefValue = filterElements.manufacturer.value;
+    const compareFunction = function(element) {
+        const inNameMatches = element.title.toLowerCase().includes(searchValue.toLowerCase())
+        return inNameMatches ;
+
+    }
+    const filteredMobiles = products.filter( compareFunction ).filter( product => {
+        const lastPrice = product.price
+        return lastPrice >= fromValue;
+    }).filter (product => {
+        const toPrice = product.price;
+        return !toValue ? true : toPrice <= toValue ;
+    }).filter ( product => {
+        const elModel = product.model;
+        return facturer == 0 ? true : elModel === facturer;
+    }).sort((a,b) => {
+        
+        switch (elSort) {
+            case '1':
+                if (a.name > b.name) {
+                    return 1;
+                } else if (a.name === b.name) {
+                    return 0;
+                }
+                    return -1;
+                case '2':
+                    return b.price - a.price;
+                case '3':
+                    return a.price - b.price;
+        
+            default: return alert("salom")
+                break;
+                return 0;
+        }
+    })
+    renderMobile(filteredMobiles)
 })
